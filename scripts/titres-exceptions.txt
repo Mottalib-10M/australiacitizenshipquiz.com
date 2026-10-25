@@ -1,0 +1,9 @@
+# « australian citizenship » EST le terme-clé : les requêtes du relevé Keyword Planner du 2026-10-25
+# (reports/citoyennete-2026-10-25/au-citizenship.txt) s'écrivent ainsi : « australian citizenship test »,
+# « australian citizenship » (10 k – 100 k chacune), « australian citizenship cost », « … by descent ».
+# L'adjectif fait partie de la requête tapée, il n'est pas un préfixe ajouté devant elle.
+australian citizenship
+
+# « australian values » est la requête (« australian values test », « australian values questions ») :
+# même justification, l'adjectif appartient au terme-clé.
+australian values

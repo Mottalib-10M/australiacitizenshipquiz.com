@@ -1,0 +1,39 @@
+---
+import PageLayout from '../../../layouts/PageLayout.astro';
+import { LAST_UPDATED, AUTHOR_NAME, CONTACT_EMAIL, AUTHOR_ROLE, SITE_NAMES } from '../../../data/site-config';
+import { route } from '../../../i18n/routes';
+import { organizationSchema, breadcrumbSchema, profilePageSchema } from '../../../lib/seo';
+import { displayDate } from '../../../lib/format';
+import { PAGES } from '../../../lib/guides';
+import { helpers } from '../../../lib/helpers';
+const lang = 'en';
+const h = helpers(lang);
+const n = PAGES.length + 1;
+const name = SITE_NAMES[lang];
+---
+<PageLayout title="Citizenship practice test publisher: who writes questions" description="Who publishes Australia Citizenship Quiz, how its practice questions are adapted from Our Common Bond, where each fee and date comes from, what it never sells." lang={lang} jsonLd={[organizationSchema(lang), profilePageSchema({ path: route('about', lang), lang }), breadcrumbSchema([{ name: 'Home', path: route('home', lang) }, { name: 'About', path: route('about', lang) }])]} breadcrumbs={[{ label: 'About' }]}>
+  <header class="mb-6"><p class="kicker">About</p><h1 class="mt-0 text-3xl font-bold text-navy-900 md:text-4xl">About {name} and its publisher</h1></header>
+  <div class="prose prose-slate max-w-none">
+    <div class="not-prose mb-6"><p class="text-lg font-semibold text-navy-900">{AUTHOR_NAME}</p><p class="text-navy-700">{AUTHOR_ROLE[lang]}</p></div>
+    <p>{name} is an independent site published by {AUTHOR_NAME}, a company that builds free tools on public rules and open data. It is written for permanent residents of Australia who are preparing for citizenship by conferral: they need to know the day their application can be lodged, what it will cost the household, and how to pass a {h.T.questions}-question test whose values questions leave no room for a single mistake.</p>
+    <h2>What you will find here</h2>
+    <ul>
+      <li>Full mock tests of {h.T.questions} questions with exactly {h.T.valuesQuestions} values questions, marked with both parts of the real rule: {h.need} correct answers and every values question right.</li>
+      <li>Practice by part of Our Common Bond and by topic, with every answer explained and the part of the booklet named.</li>
+      <li>A residence calculator that applies the general residence requirement to your own trips, day by day.</li>
+      <li>The fees of form 1298i of July 2026 for a whole family, and the monthly processing table of Home Affairs.</li>
+    </ul>
+    <p>Nothing requires an account or an e-mail address, and the answers you give stay in your browser.</p>
+    <h2>Where the questions come from</h2>
+    <p>The {h.count.all} practice questions, {h.count.values} of them on Australian values, were written by {AUTHOR_NAME} from the facts of the testable section of Australian Citizenship: Our Common Bond. The booklet is © Commonwealth of Australia and published under the Creative Commons Attribution 4.0 licence, except for the Commonwealth Coat of Arms. Our questions and explanations are adapted from it under that licence, with the attribution shown at the foot of every page. The Commonwealth does not endorse this site. Home Affairs does not publish the questions of the real test, so none of ours claims to be one.</p>
+    <h2>Where the rules and fees come from</h2>
+    <p>Every rule, fee and processing time was read on the Department of Home Affairs website, on form 1298i or in the Australian Citizenship Act 2007, and each page links to the official page it relies on. When two official pages disagree, as happens with fees after the 1 July indexation, the <a href={route('method', lang)}>method page</a> says which one we follow and why.</p>
+    <h2>What this site is not</h2>
+    <p>{name} is not the Department of Home Affairs or any other government body, and it is not a migration agent or a law firm. It cannot book a test, take an application, see your file or give advice on a personal case. It shows no coat of arms or official logo.</p>
+    <h2>How it is funded</h2>
+    <p>The site sells no course, book, app or service and takes no commission. If advertising is ever added, it will never be placed inside a test, and it cannot use your answers since they never leave your device.</p>
+    <h2>Corrections</h2>
+    <p>Write to <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a> with the page and the rule, or the first words of a question. The <a href={route('editorial', lang)}>editorial policy</a> describes how a correction is checked and dated. The site has {n} pages in Australian English.</p>
+    <p class="text-sm text-navy-600">Rules and fees last checked on <time datetime={LAST_UPDATED}>{displayDate(LAST_UPDATED, 'en-AU')}</time>.</p>
+  </div>
+</PageLayout>

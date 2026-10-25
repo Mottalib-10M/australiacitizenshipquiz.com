@@ -1,0 +1,47 @@
+---
+/**
+ * Renders one tool with its page defaults: `quiz` (mock test or practice), `bank` (questions with
+ * answers), `date` (earliest date to apply), `cost` (official fees) or `mini:<spec>`. The questions a
+ * quiz shows first are drawn here, at build time, with a seed taken from the page id (RECETTE §17.5).
+ */
+import CitizenQuiz from './calc/CitizenQuiz';
+import QuestionBank from './calc/QuestionBank';
+import ResidenceDate from './calc/ResidenceDate';
+import CostTool from './calc/CostTool';
+import MiniSim from './calc/MiniSim';
+import Frise from './ui/Frise';
+import { FRISES, FRISE_LABELS } from '../lib/frise';
+import { route, hasRoute, type Locale } from '../i18n/routes';
+import { getSpec } from '../lib/mini-specs';
+import { BANK } from '../lib/banks-build';
+import { CHAPTERS } from '../lib/banks';
+import { applyFilter, buildExam, buildPractice, seedOf, type Filter } from '../lib/engine/exam';
+import type { ToolDef } from '../lib/guide-types';
+interface Props { tool: ToolDef; lang?: Locale; primary?: boolean; idPrefix?: string; seedKey?: string }
+const { tool, lang = 'en', primary = false, idPrefix, seedKey = 'home' } = Astro.props;
+const props = (tool.props ?? {}) as Record<string, any>;
+const kind = tool.kind;
+const filter: Filter = { chapter: props.chapter != null ? CHAPTERS[Number(props.chapter)] : undefined, topic: props.topic, values: !!props.values };
+const seed = props.seed ?? seedOf(`${seedKey}-${kind}-${props.chapter ?? ''}-${props.topic ?? ''}-${props.values ?? ''}`);
+const mode = (props.mode ?? 'exam') as 'exam' | 'practice';
+const n = Number(props.n ?? 10);
+const initial = kind === 'quiz' ? (mode === 'practice' ? buildPractice(BANK, filter, seed, n) : buildExam(BANK, 'au', seed).questions) : [];
+const scope = props.values ? 'v' : props.topic ? `t:${props.topic}` : `c:${props.chapter ?? 0}`;
+const bankInitial = kind === 'bank' ? applyFilter(BANK, props.values ? { values: true } : props.topic ? { topic: props.topic } : { chapter: CHAPTERS[Number(props.chapter ?? 0)] }) : [];
+const mini = kind.startsWith('mini:') ? kind.slice(5) : null;
+const spec = mini ? getSpec(mini) : null;
+const frise = kind.startsWith('frise:') ? FRISES[kind.slice(6)] : null;
+if (kind.startsWith('frise:') && !frise) throw new Error(`Unknown frise: ${kind}`);
+const href = spec?.ctaPage && hasRoute(spec.ctaPage, lang) ? route(spec.ctaPage, lang) : undefined;
+const numDefaults: Record<string, number> = {};
+for (const [k, v] of Object.entries(props)) if (typeof v === 'number') numDefaults[k] = v;
+---
+{kind === 'quiz' && <CitizenQuiz client:load mode={mode} filter={filter} timed={!!props.timed} n={n} scopeSelect={props.scopeSelect ?? mode === 'practice'} initial={initial} seed={seed} idPrefix={idPrefix ?? 'q'} />}
+{kind === 'bank' && <QuestionBank client:load scope={scope} initial={bankInitial} total={BANK.length} idPrefix={idPrefix ?? 'b'} />}
+{kind === 'date' && <ResidenceDate client:load idPrefix={idPrefix ?? 'd'} />}
+{kind === 'cost' && <CostTool client:load kind={props.kind} idPrefix={idPrefix ?? 'c'} />}
+{frise && <Frise client:visible steps={frise.steps} labels={FRISE_LABELS(frise.caption, frise.start, frise.help)} locale="en-AU" defaultStart={frise.defaultStart} id={idPrefix ?? 'frise'} />}
+{mini && <MiniSim client:load kind={mini} href={href} defaults={numDefaults} primary={primary} idPrefix={idPrefix ?? (primary ? 'p' : 'm')} />}
+{(kind === 'quiz' || kind === 'bank') && (
+  <p class="mt-2 text-xs text-navy-600" data-attribution-au>Questions adapted from Australian Citizenship: Our Common Bond, © Commonwealth of Australia, <a class="underline" href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">CC BY 4.0</a>, by Radif Partners.</p>
+)}

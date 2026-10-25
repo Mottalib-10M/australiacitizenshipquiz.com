@@ -1,0 +1,30 @@
+{
+  "_lisezmoi": "Chiffres des pages eligibility et apply absents de params-2026.json, relus sur les extraits officiels Home Affairs du 2026-10-25 (pages permanent resident, by descent, fee concessions, processing times, ceremony ; formulaire 1298i de juillet 2026).",
+  "stalePage": {
+    "generalConcession": 40,
+    "otherSituations": 180,
+    "otherSituationsConcession": 20,
+    "descent": 230,
+    "descentSibling": 95
+  },
+  "prPageP75": "13 months",
+  "prPageP90": "16 months",
+  "descentPageP75": "3 months",
+  "descentPageP90": "5 months",
+  "descentBornFrom": "1949-01-26",
+  "descentParentLawfulYears": 2,
+  "britishArrivedBefore": "1975-01-01",
+  "linkStatementMonths": 6,
+  "specialTravelWorkYears": 2,
+  "specialTravelWorkWindowYears": 4,
+  "ceremonyAttendFromAge": 16,
+  "evidenceErrorRefundWeeks": 6,
+  "statelessSection": "21(8)",
+  "conferralForms": { "general": "1300t", "other": "1290" },
+  "descentForm": "118",
+  "adoptionForm": "1272",
+  "renunciationForm": "128",
+  "resumptionForm": "132",
+  "evidenceForm": "119",
+  "identityDeclarationForm": "1195"
+}

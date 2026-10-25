@@ -1,0 +1,19 @@
+# Australia Citizenship Quiz
+
+> Independent, non-government site published by Radif Partners: free Australian citizenship test practice (20-question mock tests marked with the real rule, 15 correct answers and all 5 Australian values questions), a residence date calculator for the general residence requirement, and the citizenship fees of form 1298i (July 2026). It is not the Department of Home Affairs and does not take applications.
+
+Site: https://australiacitizenshipquiz.com
+Language: Australian English (en-AU)
+Contact: contact@australiacitizenshipquiz.com
+
+## Main pages
+
+- [Home: free mock test and the five steps to citizenship](https://australiacitizenshipquiz.com/en/)
+- [Method: how questions, dates and fees are checked](https://australiacitizenshipquiz.com/en/method/)
+- [About the publisher](https://australiacitizenshipquiz.com/en/about/)
+
+## Data and sources
+
+- Practice questions adapted from Australian Citizenship: Our Common Bond, © Commonwealth of Australia 2020, CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/), rewritten by Radif Partners. They are not the official test questions.
+- Test format, residence requirement, ceremonies and processing times: Department of Home Affairs (immi.homeaffairs.gov.au), checked on 25 October 2026.
+- Fees: Home Affairs form 1298i, design date July 2026.

@@ -1,0 +1,42 @@
+import { definePage } from '../../lib/guide-types';
+
+export default definePage({
+  id: 'children',
+  group: 'eligibility',
+  order: 90,
+  tool: { kind: 'mini:child' },
+  mini: { kind: 'mini:family' },
+  related: ['born', 'descent', 'cost', 'documents', 'ceremony', 'requirements'],
+  sources: ['au_pr', 'au_concession', 'au_1298i', 'au_ceremony', 'au_birth'],
+  en: {
+    slug: 'citizenship-for-children',
+    nav: 'Children',
+    card: 'How babies, children and teenagers become Australian citizens: on a parent’s form, alone, by birth or by descent.',
+    title: 'Citizenship for Children 2026: Newborns, Kids and Teens',
+    description: 'Citizenship for children in Australia: free on a parent’s form under 16, own application at 16 or 17, newborns by birth or descent. Fees, papers and ceremony.',
+    h1: 'Citizenship for children: newborns, under-16s and teenagers',
+    intro: 'Enter the child’s age to see how they become a citizen with you, then total the fees for the whole household.',
+    resume: (h) => `How a child becomes an Australian citizen depends first on age and place of birth. A newborn in Australia is a citizen at birth if a parent is a citizen or permanent resident that day; a baby born overseas to an Australian citizen applies by descent (${h.aud(h.F.descent)}, ${h.aud(h.F.descentSibling)} for each sibling lodged together). For migrant families, a child aged 15 or under who is a permanent resident can be included on a parent’s conferral application at no cost: no residence requirement, no test, and the child becomes a citizen at the same moment as the parent, with the ceremony optional. The child must still be a permanent resident under ${h.R.childExemptUnder} both when the application is lodged and when it is decided. A teenager of 16 or 17 cannot be included: they lodge their own application on form ${h.B.conferralForms.other} for ${h.aud(h.F.otherSituations)} (${h.aud(h.F.otherSituationsConcession)} as a dependant on a Pensioner Concession Card), must meet the general residence requirement unless it would cause significant hardship, do not sit the test, and must attend a ceremony.`,
+    faqs: (h) => [
+      { q: 'My child turns 16 while my application is being processed. What happens?', a: `A child included on your form must be under ${h.R.childExemptUnder} on the day you apply and on the day Home Affairs decides. If the birthday falls in between, the child can no longer become a citizen on your application and needs one of their own, on form ${h.B.conferralForms.other}, meeting the residence requirement. Lodging early, or lodging the teenager’s application in parallel, avoids the gap.` },
+      { q: 'Can I add a baby born after I lodged my citizenship application?', a: 'Tell Home Affairs about the change: information about children in the application is one of the changes it asks applicants to report. A baby born in Australia after a parent became a permanent resident is usually already a citizen by birth and needs no application. A baby born overseas would need to be a permanent resident before it could be included.' },
+      { q: 'Does a child have to make the pledge at the ceremony?', a: `No. Children under 16 included on a parent’s application become citizens at the same time as the parent and do not have to attend or make the pledge, though they are welcome to. A teenager who applied alone at 16 or 17 must attend and make the pledge, because the ceremony rule applies to applicants aged ${h.B.ceremonyAttendFromAge} or over when they applied.` },
+      { q: 'Who signs for a child in a citizenship application?', a: 'A responsible parent. Home Affairs asks the applying parent to show they are the responsible parent, with the child’s birth certificate, passport, any name-change proof, any court orders about custody, guardianship or parental responsibility, and proof of an overseas adoption. A child under 18 may also lodge their own application with permission from a parent or guardian.' },
+    ],
+    body: (h) => `
+<h2>Which route for which child</h2>
+${h.table(['Child', 'Route', 'Fee (form 1298i)', 'Ceremony'], [['Born in Australia, a parent a citizen or PR at the birth', 'citizen by birth', 'nil', 'no'], ['Born in Australia to temporary visa holders', `citizen on the ${h.M.bornResidentYears}th birthday after living here, or on a parent’s form`, 'nil', 'no'], ['Born overseas to an Australian citizen parent', `descent, form ${h.B.descentForm}`, `${h.aud(h.F.descent)}, then ${h.aud(h.F.descentSibling)} each`, 'no'], ['Adopted overseas under the Hague Convention by a citizen', `form ${h.B.adoptionForm}`, `${h.aud(h.F.adoption)}, then ${h.aud(h.F.adoptionSibling)} each`, 'no'], ['Permanent resident aged 15 or under', 'on a parent’s conferral form', 'nil', 'optional'], ['Permanent resident aged 16 or 17', `own application, form ${h.B.conferralForms.other}`, h.aud(h.F.otherSituations), 'yes']], `Fees from form 1298i (July 2026). The permanent resident page still shows ${h.aud(h.B.stalePage.otherSituations)} for 16 and 17 year olds.`, ['l', 'l', 'r', 'l'])}
+<h2>Newborns</h2>
+<p>For a baby born in Australia, the question is the parents’ status on the day of birth. Since ${h.date(h.M.birthRuleFrom)}, ${h.src('au_birth', 'Home Affairs explains')}, a child born here is a citizen at birth if at least one parent is a citizen or permanent resident. There is nothing to apply for; the full birth certificate is the starting point for a passport, and an evidence certificate is optional. Babies born here to temporary visa holders are not citizens at birth: the ${h.a('born', 'born in Australia page')} explains the ten-year rule and the other options. A baby born abroad to an Australian parent applies by descent, at any age, with the parent’s proof of citizenship.</p>
+<h2>Children under 16 on a parent’s form</h2>
+<p>This is the usual route for migrant families. You can include any dependent child aged 15 or under who holds a permanent visa, or a Special Category visa for New Zealand citizens. The child pays nothing, does not need to meet the residence requirement and does not sit the test. When you make the pledge, the child becomes a citizen at the same moment, whether or not they come on stage. The panel below totals the fees for a household with adults, younger children and teenagers.</p>
+<!--tool:mini:family-->
+<p>For each included child, the application needs a full birth certificate or family register showing the parents, the child’s passport or travel document, proof linking the birth name to the current name if they differ, and one passport-sized photograph, plus any parenting orders and adoption papers. The ${h.a('documents', 'documents page')} covers translations and copies.</p>
+<h2>Teenagers of 16 and 17</h2>
+<p>A 16 or 17 year old cannot be included on a parent’s application. They lodge their own on paper, using form ${h.B.conferralForms.other} for other situations. They must be a permanent resident on the day they apply and the day of the decision, and meet the general residence requirement: ${h.R.lawfulYears} years living in Australia on a visa, ${h.R.prMonths} months as a permanent resident, no more than ${h.R.maxAbsenceDays} days away in total and ${h.R.maxAbsenceLast12m} in the last year. If meeting it would cause significant hardship and disadvantage, they can explain why with evidence. They do not sit the citizenship test, but they must attend a ceremony. Families often lodge the parent’s and the teenager’s applications together, so the household reaches the same ceremony stage at about the same time.</p>
+<h2>A child applying alone</h2>
+<p>A child under 18 can lodge their own application with permission from a parent or guardian, and Home Affairs has a separate path for a child aged 15 or under, or an unaccompanied humanitarian minor, who applies alone. The conditions for that path are on its own Home Affairs page. Character is not assessed under 18, and Australian police checks start at ${h.R.afpCheckFromAge}.</p>
+<h2>Fees and concessions for children</h2>
+<p>No fee is payable for children aged 15 or under on the same form as a responsible parent. A teenager listed as a dependant on a valid Pensioner Concession Card pays the concession fee of ${h.aud(h.F.otherSituationsConcession)} instead of ${h.aud(h.F.otherSituations)}; Health Care Cards and Student Cards are not accepted. Siblings applying by descent or Hague adoption at the same time pay ${h.aud(h.F.descentSibling)} each after the first. The ${h.a('cost', 'cost page')} lists every fee.</p>`,
+  },
+});

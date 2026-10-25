@@ -1,0 +1,155 @@
+---
+/**
+ * Pillar home (RECETTE §7): a road map in five steps, not a country switch. First screen: the H1,
+ * the independent notice and a full 20-question mock test marked with both rules. Then the five
+ * steps (residence, application, test, decision, ceremony), each with its figure and its page, two
+ * mini tools, the four parts of the booklet with the bank counts, the fees and the official times.
+ * Every figure is read from params-2026.json and every bank count from the question file.
+ */
+import PageLayout from '../layouts/PageLayout.astro';
+import Tool from './Tool.astro';
+import Clamp from './Clamp.astro';
+import Sources from './Sources.astro';
+import { route, type Locale } from '../i18n/routes';
+import { PAGES } from '../lib/guides';
+import { groupLabel, GROUPS_ORDER } from '../i18n/nav';
+import { helpers } from '../lib/helpers';
+import { LAST_UPDATED, AUTHOR_NAME } from '../data/site-config';
+import { displayDate } from '../lib/format';
+import { faqSchema, webApplicationSchema, websiteSchema, organizationSchema } from '../lib/seo';
+interface Props { lang: Locale }
+const { lang } = Astro.props;
+const h = helpers(lang, true);
+const { T, R, F, PT, H, M } = h;
+const need = h.need;
+const pages = (g: string) => PAGES.filter((p) => p.group === g).map((p) => ({ href: route(p.id, lang), name: p.en.nav, text: p.en.card }));
+
+const title = 'Australian Citizenship Test Practice 2026: Free Mock Tests';
+const description = `Australian citizenship test practice: free 20-question mock tests marked like the real test (15 correct and all 5 values questions), plus your residence date.`;
+
+const faqs = [
+  { q: 'How many questions are in the Australian citizenship test?', a: `${T.questions} multiple-choice questions, answered on a computer in English within ${T.minutes} minutes. ${T.valuesQuestions} of them are about Australian values. To pass you need at least ${T.passPercent}% overall, which is ${need} correct answers, and every one of the ${T.valuesQuestions} values questions must be right. A candidate with ${T.questions - 1} correct answers and one values mistake fails.` },
+  { q: 'Are these the real citizenship test questions?', a: `No. Home Affairs does not publish the questions of the test. The ${h.count.all} questions here were written by ${AUTHOR_NAME} from the testable section of Our Common Bond, the official booklet, which the Commonwealth publishes under a CC BY 4.0 licence. Each question names the part of the booklet where the answer is explained, so you can check it at the source.` },
+  { q: 'How much does the Australian citizenship test cost?', a: `There is no separate fee for the test. It is part of the citizenship application, whose fee on form 1298i of July 2026 is ${h.aud(F.general)} for an adult applying under general eligibility, or ${h.aud(F.generalConcession)} with a Pensioner Concession Card. Home Affairs says a resit within the same application costs nothing. The practice tests on this site are free.` },
+  { q: 'Who has to sit the citizenship test?', a: `Most people applying for citizenship by conferral who are aged ${T.ages[0]} to ${T.ages[1]} when they apply. Applicants under ${T.ages[0]} or aged ${T.ages[1] + 1} and over do not sit it, nor do people with a permanent physical or mental incapacity that stops them understanding the application. Some other groups, such as people born to a former citizen, apply under different rules without a test.` },
+  { q: 'When can I apply for Australian citizenship?', a: `Under the general residence requirement, once you have lived lawfully in Australia for ${R.lawfulYears} years, including the last ${R.prMonths} months as a permanent resident, with no more than ${R.maxAbsenceDays} days away in those ${R.lawfulYears} years and no more than ${R.maxAbsenceLast12m} days in the last 12 months. The residence calculator on this site finds the first date on which all four conditions hold.` },
+  { q: 'What happens if I fail the citizenship test?', a: `You can sit it again while the application stays open, and Home Affairs says there is no extra fee. If you do not pass after ${T.appointmentsBeforeRefusal} test appointments, your application may be refused. Use the time before the next appointment to find the part of the booklet that costs you points and practise it until you pass with a margin.` },
+];
+const jsonLd = [websiteSchema(lang), organizationSchema(lang), webApplicationSchema({ name: 'Australian citizenship practice test', description, path: route('home', lang), lang }), faqSchema(faqs, lang)];
+
+const resume = `The Australian citizenship test is a ${T.questions}-question multiple-choice test, taken on a computer in English, that most applicants for citizenship by conferral aged ${T.ages[0]} to ${T.ages[1]} must pass. It lasts ${T.minutes} minutes. Since ${h.date(T.valuesSince)}, the pass rule has two parts: at least ${T.passPercent}% overall, so ${need} correct answers out of ${T.questions}, and all ${T.valuesQuestions} questions on Australian values answered correctly. Every question comes from the testable section of the official booklet, Australian Citizenship: Our Common Bond, in four parts: Australia and its people; democratic beliefs, rights and liberties; government and the law; and Australian values. There is no separate fee for the test: it is part of the application, ${h.aud(F.general)} for an adult on form 1298i of July 2026. The mock test above draws ${T.questions} questions from our ${h.count.all} practice questions, always with ${T.valuesQuestions} values questions, and marks them with the real rule. Before you can sit it, you need ${R.lawfulYears} years of lawful residence and ${R.prMonths} months as a permanent resident.`;
+
+const steps = [
+  { n: 1, name: 'Qualify on residence', fig: `${R.lawfulYears} years, ${R.prMonths} months PR`, text: `At most ${R.maxAbsenceDays} days away in ${R.lawfulYears} years and ${R.maxAbsenceLast12m} in the last year.`, id: 'residence' },
+  { n: 2, name: 'Apply and pay', fig: h.aud(F.general), text: `Online in ImmiAccount for most people aged ${R.onlineAges[0]} to ${R.onlineAges[1]}, with ${R.identityDocs} identity documents.`, id: 'application' },
+  { n: 3, name: 'Sit the test', fig: `${need}/${T.questions} and ${T.valuesQuestions}/${T.valuesQuestions}`, text: `${T.minutes} minutes, in English, at an appointment with Home Affairs.`, id: 'test' },
+  { n: 4, name: 'Wait for the decision', fig: PT.table.decision.p90, text: `Nine in ten decisions within this time, in the table of ${h.date(PT.pageUpdated)}.`, id: 'processing' },
+  { n: 5, name: 'Make the pledge', fig: `within ${R.pledgeWithinMonths} months`, text: `You become a citizen at the ceremony, when you make the pledge.`, id: 'ceremony' },
+];
+const partIds = ['part1', 'part2', 'part3', 'part4'];
+---
+<PageLayout title={title} description={description} lang={lang} jsonLd={jsonLd} faqs={faqs} breadcrumbs={[]}>
+  <header class="mb-3">
+    <h1 class="mt-0 text-[1.75rem] font-bold text-navy-900 max-sm:leading-tight sm:text-3xl md:text-4xl">Australian citizenship test practice: a full mock test, marked like the real one</h1>
+    <p class="mt-2 text-base text-navy-700 sm:text-lg">{T.questions} questions, {need} correct to pass and all {T.valuesQuestions} values questions right. Free, no sign-up, answers explained.</p>
+    <p data-independant class="mt-2 text-sm text-navy-600">Independent, non-government site: tests, applications and appointments are handled only on the Home Affairs website.</p>
+  </header>
+  <div data-outil class="mb-4"><Tool tool={{ kind: 'quiz', props: { mode: 'exam' } }} lang={lang} primary={true} seedKey="home" /></div>
+  <Clamp text={resume} id="clamp-home" lang={lang} class="mb-3" />
+  <p class="mb-8 text-sm text-navy-600">Updated <time datetime={LAST_UPDATED}>{displayDate(LAST_UPDATED, 'en-AU')}</time> · {AUTHOR_NAME} · <a href={route('method', lang)} class="underline hover:text-navy-900">How the questions and figures are checked</a> · <a href={route('about', lang)} class="underline hover:text-navy-900">About this site</a></p>
+
+  <section class="mb-10">
+    <h2 class="mb-4 text-2xl font-bold text-navy-900">From permanent resident to citizen in five steps</h2>
+    <ol class="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
+      {steps.map((s) => (
+        <li class="rounded-lg border border-navy-200 bg-white p-4">
+          <p class="text-xs font-semibold uppercase tracking-wide text-navy-500">Step {s.n}</p>
+          <p class="mt-1 font-semibold text-navy-900"><a href={route(s.id, lang)} class="underline hover:text-accent-700">{s.name}</a></p>
+          <p class="mt-1 text-lg font-bold tabular-nums text-accent-700">{s.fig}</p>
+          <p class="mt-1 text-sm text-navy-700">{s.text}</p>
+        </li>
+      ))}
+    </ol>
+    <p class="mt-3 text-sm text-navy-700">Put your own dates on these steps with the <a href={route('journey', lang)} class="underline hover:text-navy-900">citizenship timeline</a>.</p>
+  </section>
+
+  <div class="prose prose-slate max-w-none">
+    <h2>Step 1: are you eligible yet?</h2>
+    <p>The test comes late in the process. Home Affairs invites you to it only after you have applied, so the first question is whether you can apply at all. For most permanent residents the answer depends on the general residence requirement, which has four conditions that must all be true on the day you apply: {R.lawfulYears} years of lawful residence in Australia on any visa; the last {R.prMonths} months of that time as a permanent resident; no more than {R.maxAbsenceDays} days outside Australia in the {R.lawfulYears} years, of which no more than {R.maxAbsenceLast12m} in the last 12 months. Home Affairs counts the day you leave and the day you come back as days in Australia, so a weekend away from Friday to Sunday costs one day, not three.</p>
+    <p>Some people are treated differently. Holders of a Special Category Visa, the visa most New Zealand citizens hold, are deemed permanent residents from {h.date(R.scvDeemedFrom)} if they meet the conditions. Children under {R.childExemptUnder} included on a parent's form do not need to meet the residence rule. Members of the Australian Defence Force with {R.adfDays} days of service, and people whose work needs regular travel, have their own provisions. Answer the four questions below for a first verdict, then use the <a href={route('residence', lang)}>residence calculator</a> with your real trips for the exact first date.</p>
+  </div>
+  <div class="mb-8"><Tool tool={{ kind: 'mini:eligible' }} lang={lang} idPrefix="h1" /></div>
+
+  <div class="prose prose-slate max-w-none">
+    <h2>Step 2: the application</h2>
+    <p>Applicants aged {R.onlineAges[0]} to {R.onlineAges[1]} usually apply online in ImmiAccount; the paper form 1300t is needed in some cases, such as a full fee exemption or no passport. You prove your identity with {R.identityDocs} documents that together show your photo, signature, date of birth and current address, and for applicants aged {R.afpCheckFromAge} and over Home Affairs requests an Australian police check itself; you may also need an overseas penal clearance for any country where they spent {R.penalClearanceStayDays} days or more if their time outside Australia since turning 18 adds up to {R.penalClearanceOutsideMonths} months or more. Children under {R.childExemptUnder} can be included on a parent's application at no extra fee. The <a href={route('documents', lang)}>documents page</a> lists what Home Affairs asks for, and the <a href={route('online', lang)}>online application page</a> explains when paper is required.</p>
+    <h3>What the application costs</h3>
+  </div>
+  <Fragment set:html={h.table(['Application', 'Standard fee', 'With a Pensioner Concession Card'], [['Conferral, general eligibility (most permanent residents)', h.aud(F.general), h.aud(F.generalConcession)], ['Conferral, other situations', h.aud(F.otherSituations), h.aud(F.otherSituationsConcession)], ['Child under 16 on a parent\'s form', h.aud(F.childOnParentForm), h.aud(F.childOnParentForm)], ['Citizenship by descent (first child)', h.aud(F.descent), 'not applicable'], ['Evidence of citizenship', h.aud(F.evidence), 'not applicable']], `Form 1298i, design date July 2026. Fees are indexed every 1 July.`, ['l', 'r', 'r'])} />
+  <div class="prose prose-slate max-w-none">
+    <p>A warning on fees: some Home Affairs web pages still print the older amount of {h.aud(F.stale.general)} for general eligibility. The fee schedule is <Fragment set:html={h.src('au_1298i', 'form 1298i')} />, which the department updates when fees are indexed on 1 July, and this site follows it. The <a href={route('cost', lang)}>fee calculator</a> adds up a whole family.</p>
+
+    <h2>Step 3: the test itself</h2>
+    <p>Once your application is being processed, Home Affairs sends an appointment for the test, often together with an interview. At the appointment an officer checks your identity documents against the originals, then you sit the test on a computer. The format has been stable since the last change in November 2020:</p>
+  </div>
+  <dl class="mb-6 grid grid-cols-2 gap-3 sm:grid-cols-4">
+    <div class="rounded-lg bg-navy-50 p-4"><dt class="text-sm text-navy-600">Questions</dt><dd class="text-2xl font-bold tabular-nums text-navy-900">{T.questions}</dd></div>
+    <div class="rounded-lg bg-navy-50 p-4"><dt class="text-sm text-navy-600">Time allowed</dt><dd class="text-2xl font-bold tabular-nums text-navy-900">{T.minutes} min</dd></div>
+    <div class="rounded-lg bg-navy-50 p-4"><dt class="text-sm text-navy-600">To pass overall</dt><dd class="text-2xl font-bold tabular-nums text-navy-900">{need} ({T.passPercent}%)</dd></div>
+    <div class="rounded-lg bg-navy-50 p-4"><dt class="text-sm text-navy-600">Values questions</dt><dd class="text-2xl font-bold tabular-nums text-navy-900">{T.valuesQuestions} of {T.valuesQuestions}</dd></div>
+  </dl>
+  <div class="prose prose-slate max-w-none">
+    <p>The test is in English only, and there is no separate English exam: passing the test is the language check. Candidates can listen to the questions through a headset. The booklet you learn from is available in {T.ocbLanguages} community languages, so you can study the facts in your own language and then practise the questions in English. Candidates who asked for help in their application and completed at least {h.num(T.assistedAmepHours)} hours of the Adult Migrant English Program, or who have an impairment needing extra time, may be offered the Assisted Test, with {T.assistedMinutes} minutes; the <a href={route('english', lang)}>English page</a> gives the details.</p>
+    <h3>The values rule, and why it catches people out</h3>
+    <p>Before {h.date(T.valuesSince)}, {T.passPercent}% was enough whatever you missed. Today the {T.valuesQuestions} values questions are a gate of their own. They cover the ideas in Part 4 of the booklet: commitment to the rule of law, parliamentary democracy, freedom of speech, of association and of religion, equality of all people under the law, equality of opportunity and a fair go, mutual respect and tolerance, and the community values the booklet lists, from compassion for those in need to English as the national language and loyalty to Australia. One wrong answer there means a fail, even with {T.questions - 1} correct answers. Every mock test on this site includes exactly {T.valuesQuestions} values questions and shows the two verdicts separately, so you see which rule you missed. The <a href={route('values', lang)}>values page</a> has a dedicated drill.</p>
+
+    <h2>What to study: the four testable parts of Our Common Bond</h2>
+    <p>Home Affairs says all the information you need for the test is in the testable section of <Fragment set:html={h.src('au_ocb', 'Australian Citizenship: Our Common Bond')} />. The rest of the booklet, including the chapter on the Australian story, is not tested but helps you understand it. Our {h.count.all} questions follow the same four parts; each card shows how many we have for that part.</p>
+  </div>
+  <div class="mb-8 grid gap-3 sm:grid-cols-2 lg:grid-cols-4" data-sommaire>
+    {h.chapters.map((c, i) => (
+      <a href={route(partIds[i], lang)} class="rounded-lg border border-navy-200 p-4 transition-colors hover:border-accent-300 hover:bg-accent-50">
+        <p class="font-semibold text-navy-900">{c}</p>
+        <p class="mt-1 text-sm text-navy-600"><span class="tabular-nums font-semibold text-accent-700">{h.inChapter(i)}</span> practice questions</p>
+      </a>
+    ))}
+  </div>
+  <div class="prose prose-slate max-w-none">
+    <p><strong>Part 1</strong> covers the people and the land: the first Australians, the arrival of the First Fleet in 1788, federation in 1901, the states and territories and their capitals, the national symbols, the flags and the national days. <strong>Part 2</strong> covers what Australians believe about democracy: parliamentary democracy, the rule of law, living peacefully, respect for everyone, and the freedoms and responsibilities that go with citizenship. <strong>Part 3</strong> covers how the country is governed: the Constitution, the three levels of government, the separation of powers, the roles of the King, the Governor-General and the Prime Minister, how laws are made and how the courts work. <strong>Part 4</strong> covers Australian values, the source of the {T.valuesQuestions} compulsory questions.</p>
+    <p>A sensible plan is to read one part, then drill it with the <a href={route('questions', lang)}>question bank</a> or the part pages until you score well, then move on. Once all four parts are done, sit full mock tests in the timed mode until you pass several in a row with no values mistake. The <a href={route('studyplan', lang)}>study plan</a> turns the time you have into a daily schedule.</p>
+  </div>
+  <div class="mb-8"><Tool tool={{ kind: 'mini:studyplan' }} lang={lang} idPrefix="h2" /></div>
+
+  <div class="prose prose-slate max-w-none">
+    <h2>Step 4: how long the decision takes</h2>
+    <p>Home Affairs publishes processing times for citizenship by conferral each month. They measure the time for applications decided recently, so they describe the past, not a promise for yours. In the table updated on {h.date(PT.pageUpdated)}:</p>
+  </div>
+  <Fragment set:html={h.table(['Stage', '25% within', '50% within', '75% within', '90% within'], [['Application to decision', PT.table.decision.p25, PT.table.decision.p50, PT.table.decision.p75, PT.table.decision.p90], ['Approval to ceremony', PT.table.approvalToCeremony.p25, PT.table.approvalToCeremony.p50, PT.table.approvalToCeremony.p75, PT.table.approvalToCeremony.p90], ['Application to ceremony', PT.table.applicationToCeremony.p25, PT.table.applicationToCeremony.p50, PT.table.applicationToCeremony.p75, PT.table.applicationToCeremony.p90]], `Home Affairs citizenship processing times, conferral, updated ${h.date(PT.pageUpdated)}.`, ['l', 'r', 'r', 'r', 'r'])} />
+  <div class="prose prose-slate max-w-none">
+    <p>On {h.date(PT.onHandDate)} the department had {h.num(PT.onHand.conferral)} conferral applications on hand and had received {h.num(PT.received.conferral)} during {PT.receivedMonth}. Missing documents, identity checks and character checks slow an application down. Our <a href={route('processing', lang)}>processing page</a> places your own dates against the official percentiles.</p>
+
+    <h2>Step 5: the ceremony and the pledge</h2>
+    <p>Approval does not make you a citizen. For most applicants aged 16 and over, citizenship starts at the moment you make the pledge of commitment at a ceremony, usually organised by your local council. The invitation arrives about {R.invitationWeeksAhead} weeks ahead and you cannot choose the date. The pledge must be made within {R.pledgeWithinMonths} months of approval, otherwise the approval can be cancelled. You choose between two versions of the pledge, with or without the words "under God", and you receive your <a href={route('certificate', lang)}>citizenship certificate</a>, the document you need for an Australian passport. Allow about {M.ceremonyAllowHours} hours for the day. The <a href={route('ceremony', lang)}>ceremony page</a> covers what to bring and wear.</p>
+
+    <h2>Five mistakes that cost candidates a pass</h2>
+    <ul>
+      <li><strong>Studying from an old list.</strong> Material written before late 2020 lacks the values part and marks with the old rule. Check that any practice test includes {T.valuesQuestions} values questions.</li>
+      <li><strong>Learning answers, not facts.</strong> The questions in the real test are not published. If you memorise a list of answers, a reworded question will catch you; learn the fact behind each question instead.</li>
+      <li><strong>Skipping Part 3.</strong> Government and the law has the most detail: three levels of government, three arms of government, the roles of the Governor-General and the Prime Minister. It is where many wrong answers come from.</li>
+      <li><strong>Forgetting the documents on test day.</strong> You need original identity documents, not copies. Without them the appointment may not go ahead.</li>
+      <li><strong>Applying a few days too early.</strong> One extra day abroad in the wrong window means the residence requirement is not met. Count the days with the calculator before paying {h.aud(F.general)}.</li>
+    </ul>
+
+    <h2>How this site writes its questions and checks its figures</h2>
+    <p>{AUTHOR_NAME} writes every practice question from the facts in the testable section of Our Common Bond. The booklet is © Commonwealth of Australia and published under the Creative Commons Attribution 4.0 licence, except the Commonwealth Coat of Arms; our questions are adapted from it with attribution, which appears at the foot of every page. No question claims to be from the real test, and each one names the part of the booklet to read to check it. Questions about people who hold an office today, which can change, are left out. Every rule, fee and processing time on the site is read from one data file checked against the Home Affairs website on {h.date(h.P.retrieved_at)}, and each figure on a page comes from that file, never typed by hand. The <a href={route('method', lang)}>method page</a> explains how a test is drawn and marked.</p>
+    <p>This site is not the Department of Home Affairs and has no link with it. It takes no applications, books no appointments and cannot see your file. For anything that affects your application, the <Fragment set:html={h.src('au_test', 'Home Affairs test and interview page')} /> and your ImmiAccount are the only authorities.</p>
+    <Sources lang={lang} keys={['au_test', 'au_prepare', 'au_ocb', 'au_pr', 'au_rescalc', 'au_1298i', 'au_processing', 'au_ceremony']} />
+
+    <h2>Every page of the site</h2>
+  </div>
+  <div class="not-prose grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+    {GROUPS_ORDER.map((g) => (
+      <section><h3 class="mb-2 text-lg font-semibold text-navy-900">{groupLabel(g, lang)}</h3><ul class="space-y-2 text-sm">{pages(g).map((c) => <li><a href={c.href} class="font-medium text-accent-700 underline">{c.name}</a><span class="block text-navy-700">{c.text}</span></li>)}</ul></section>
+    ))}
+  </div>
+</PageLayout>

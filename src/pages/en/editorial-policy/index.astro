@@ -1,0 +1,26 @@
+---
+import PageLayout from '../../../layouts/PageLayout.astro';
+import { AUTHOR_NAME, CONTACT_EMAIL, LAST_UPDATED, SITE_NAMES } from '../../../data/site-config';
+import { route } from '../../../i18n/routes';
+const lang = 'en';
+---
+<PageLayout title={`Editorial policy of ${SITE_NAMES[lang]}: sources and fixes`} description="Which official pages and which booklet Australia Citizenship Quiz relies on, how its practice questions are written, which sources it refuses and how mistakes are corrected." lang={lang} noindex={true} breadcrumbs={[{ label: 'Editorial policy' }]} showAuthor={false}>
+  <div class="prose prose-slate max-w-none">
+    <h1>Editorial and corrections policy</h1>
+    <p>Readers use these pages to decide when to lodge a citizenship application worth several hundred dollars and how to prepare for a test they may sit only a limited number of times. An outdated fee or a wrong day count can cost them a refusal, so every figure on the site points back to the official page it was read on.</p>
+    <h2>Who is responsible</h2><p>{AUTHOR_NAME}, reachable at <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>.</p>
+    <h2>What we read</h2>
+    <ul>
+      <li>the Department of Home Affairs: the test and interview pages, the eligibility pages for each route, the ceremony pages and the monthly processing times;</li>
+      <li>form 1298i, the schedule of citizenship fees;</li>
+      <li>Australian Citizenship: Our Common Bond, the official booklet, published under CC BY 4.0;</li>
+      <li>the Australian Citizenship Act 2007 and the Australian Citizenship Regulation 2016, for definitions only.</li>
+    </ul>
+    <h2>How the questions are written</h2><p>Every question is written from a fact in the testable section of Our Common Bond, with the part named. We never copy a question from an app, a book, another practice site or the real test, and we never present our questions as the official ones.</p>
+    <h2>Sources we refuse</h2><p>Migration agents, law firms, app publishers, forums and practice sites never supply a figure here. A rule we cannot find on an official page is not published.</p>
+    <h2>Review cycle</h2><p>A script compares the fee form and the processing table with our parameter file: by hand until the site is published, then automatically every month. The booklet and the rules are read again whenever Home Affairs announces a change. Every page shows the date of the last check.</p>
+    <h2>Corrections</h2>
+    <ol><li>We open the official page or form again.</li><li>We correct the parameter file or the question and add a test for the case.</li><li>The site is rebuilt and shows the new date.</li></ol>
+    <h2>Independence</h2><p>No government, agent, law firm or publisher pays for or reviews what is published here, and the site has no affiliate links. See also the <a href={route('method', lang)}>method page</a>. Version: {LAST_UPDATED}.</p>
+  </div>
+</PageLayout>

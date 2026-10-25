@@ -1,0 +1,335 @@
+{
+  "_lisezmoi": "Tous les paramètres du site vivent ici, jamais en dur (RECETTE §4). Relus sur les sources officielles australiennes le 2026-10-25 ; scripts/update-data.py compare les frais (formulaire 1298i) et les délais à ce fichier.",
+  "year": 2026,
+  "retrieved_at": "2026-10-25",
+  "sources": {
+    "au_test": {
+      "url": "https://immi.homeaffairs.gov.au/citizenship/test-and-interview/learn-about-citizenship-interview-and-test",
+      "label": {
+        "en": "Home Affairs: learn about the citizenship interview and test (updated 19 September 2025)"
+      }
+    },
+    "au_prepare": {
+      "url": "https://immi.homeaffairs.gov.au/citizenship/test-and-interview/prepare-for-test",
+      "label": {
+        "en": "Home Affairs: prepare for the citizenship test (updated 23 February 2026)"
+      }
+    },
+    "au_ocb": {
+      "url": "https://immi.homeaffairs.gov.au/citizenship/test-and-interview/our-common-bond",
+      "label": {
+        "en": "Home Affairs: Australian Citizenship, Our Common Bond"
+      }
+    },
+    "au_ocb_pdf": {
+      "url": "https://immi.homeaffairs.gov.au/citizenship-subsite/files/our-common-bond-testable.pdf",
+      "label": {
+        "en": "Our Common Bond, testable section (PDF, © Commonwealth of Australia 2020, CC BY 4.0)"
+      }
+    },
+    "au_pr": {
+      "url": "https://immi.homeaffairs.gov.au/citizenship/become-a-citizen/permanent-resident",
+      "label": {
+        "en": "Home Affairs: citizenship for permanent residents (updated 12 October 2026)"
+      }
+    },
+    "au_concession": {
+      "url": "https://immi.homeaffairs.gov.au/citizenship/become-a-citizen/permanent-resident/fee-concessions-or-exemptions",
+      "label": {
+        "en": "Home Affairs: fee concessions and exemptions (updated 24 July 2026)"
+      }
+    },
+    "au_rescalc": {
+      "url": "https://immi.homeaffairs.gov.au/help-support/tools/residence-calculator",
+      "label": {
+        "en": "Home Affairs: residence calculator"
+      }
+    },
+    "au_1298i": {
+      "url": "https://immi.homeaffairs.gov.au/form-listing/forms/1298i.pdf",
+      "label": {
+        "en": "Home Affairs form 1298i: Australian citizenship application fees (design date 07/26)"
+      }
+    },
+    "au_processing": {
+      "url": "https://immi.homeaffairs.gov.au/citizenship/citizenship-processing-times/citizenship-processing-times",
+      "label": {
+        "en": "Home Affairs: citizenship processing times (updated 16 October 2026)"
+      }
+    },
+    "au_ceremony_wait": {
+      "url": "https://immi.homeaffairs.gov.au/citizenship/citizenship-processing-times/ceremony-wait-times",
+      "label": {
+        "en": "Home Affairs: ceremony wait times by council"
+      }
+    },
+    "au_ceremony": {
+      "url": "https://immi.homeaffairs.gov.au/citizenship/ceremony",
+      "label": {
+        "en": "Home Affairs: citizenship ceremony"
+      }
+    },
+    "au_descent": {
+      "url": "https://immi.homeaffairs.gov.au/citizenship/become-a-citizen/by-descent",
+      "label": {
+        "en": "Home Affairs: citizenship by descent"
+      }
+    },
+    "au_evidence": {
+      "url": "https://immi.homeaffairs.gov.au/citizenship/certificate/get-a-certificate",
+      "label": {
+        "en": "Home Affairs: evidence of Australian citizenship"
+      }
+    },
+    "au_renounce": {
+      "url": "https://immi.homeaffairs.gov.au/citizenship/give-up-citizenship",
+      "label": {
+        "en": "Home Affairs: give up your Australian citizenship"
+      }
+    },
+    "au_resume": {
+      "url": "https://immi.homeaffairs.gov.au/citizenship/become-a-citizen/become-citizen-again",
+      "label": {
+        "en": "Home Affairs: become a citizen again"
+      }
+    },
+    "au_day": {
+      "url": "https://immi.homeaffairs.gov.au/citizenship/celebrating-citizenship/australian-citizenship-day",
+      "label": {
+        "en": "Home Affairs: Australian Citizenship Day, 17 September"
+      }
+    },
+    "au_history": {
+      "url": "https://immi.homeaffairs.gov.au/citizenship/celebrating-citizenship/celebrating-australian-citizenship-in-schools/history-of-australian-citizenship",
+      "label": {
+        "en": "Home Affairs: history of Australian citizenship"
+      }
+    },
+    "au_foi": {
+      "url": "https://www.homeaffairs.gov.au/foi/files/2025/fa-250801434-document-released.PDF",
+      "label": {
+        "en": "Home Affairs FOI document fa-250801434: counting days of travel"
+      }
+    },
+    "au_act": {
+      "url": "https://www.legislation.gov.au/C2007A00020/latest/text",
+      "label": {
+        "en": "Australian Citizenship Act 2007 (Federal Register of Legislation)"
+      }
+    },
+    "ccby": {
+      "url": "https://creativecommons.org/licenses/by/4.0/",
+      "label": {
+        "en": "Creative Commons Attribution 4.0 International licence"
+      }
+    },
+    "au_interview": {
+      "url": "https://immi.homeaffairs.gov.au/citizenship/test-and-interview/learn-about-citizenship-interview-and-test/learn-about-citizenship-interview",
+      "label": {
+        "en": "Home Affairs: learn about the citizenship interview"
+      }
+    },
+    "au_birth": {
+      "url": "https://immi.homeaffairs.gov.au/help-text/eplus/Pages/elp-h0695.aspx",
+      "label": {
+        "en": "Home Affairs help text: Australian citizen by birth"
+      }
+    },
+    "au_foi_tests": {
+      "url": "https://www.homeaffairs.gov.au/foi/files/2020/fa-200500442-document-released.PDF",
+      "label": {
+        "en": "Home Affairs FOI release FA 20/05/00442: citizenship tests by result, 2018-19 and 2019-20"
+      }
+    }
+  },
+  "au": {
+    "test": {
+      "questions": 20,
+      "valuesQuestions": 5,
+      "passPercent": 75,
+      "minutes": 45,
+      "assistedMinutes": 90,
+      "assistedAmepHours": 400,
+      "appointmentsBeforeRefusal": 3,
+      "ages": [
+        18,
+        59
+      ],
+      "feeIncluded": true,
+      "resitFree": true,
+      "languageOnly": "English",
+      "ocbLanguages": 40,
+      "valuesSince": "2020-11-15",
+      "guide": "Australian Citizenship: Our Common Bond (© Commonwealth of Australia 2020)",
+      "guideLicence": "CC BY 4.0, except the Commonwealth Coat of Arms",
+      "guideParts": 4,
+      "source": "https://immi.homeaffairs.gov.au/citizenship/test-and-interview/learn-about-citizenship-interview-and-test",
+      "pageUpdated": "2025-09-19",
+      "preparePageUpdated": "2026-02-23"
+    },
+    "residence": {
+      "lawfulYears": 4,
+      "prMonths": 12,
+      "maxAbsenceDays": 365,
+      "maxAbsenceLast12m": 90,
+      "childExemptUnder": 16,
+      "absenceCounting": "departure-and-arrival-days-count-as-in-australia",
+      "absenceCountingQuote": "Days where the applicant arrived from outside Australia or departed Australia are counted [...] as days in Australia for the general residence calculation.",
+      "scvDeemedFrom": "2022-07-01",
+      "scvEligibleFrom": "2023-07-01",
+      "nz189DeemedFrom": "2022-01-01",
+      "nz189EligibleFrom": "2023-01-01",
+      "nz189NoWaitFrom": "2023-01-01",
+      "special": {
+        "benefitPrYears": 2,
+        "benefitDays": 180,
+        "benefitDaysLast12m": 90,
+        "travelYears": 4,
+        "travelPrYears": 1,
+        "travelDays": 480,
+        "travelDaysLast12m": 120
+      },
+      "adfDays": 90,
+      "penalClearanceYears": 10,
+      "penalClearanceStayDays": 90,
+      "penalClearanceOutsideMonths": 12,
+      "identityDocs": 3,
+      "afpCheckFromAge": 16,
+      "pledgeWithinMonths": 12,
+      "invitationWeeksAhead": 4,
+      "onlineAges": [
+        18,
+        59
+      ],
+      "sources": [
+        "https://immi.homeaffairs.gov.au/citizenship/become-a-citizen/permanent-resident",
+        "https://immi.homeaffairs.gov.au/help-support/tools/residence-calculator"
+      ],
+      "pageUpdated": "2026-10-12"
+    },
+    "fees": {
+      "general": 595,
+      "generalConcession": 85,
+      "otherSituations": 365,
+      "otherSituationsConcession": 40,
+      "childOnParentForm": 0,
+      "descent": 380,
+      "descentSibling": 160,
+      "adoption": 380,
+      "adoptionSibling": 160,
+      "renunciation": 320,
+      "resumption": 255,
+      "evidence": 290,
+      "form": "1298i (design date 07/26)",
+      "indexation": "1 July each year (CPI)",
+      "source": "https://immi.homeaffairs.gov.au/form-listing/forms/1298i.pdf",
+      "staleOfficialPage": "La page « Permanent resident » de Home Affairs affiche encore AUD285 (18-59 ans), AUD40, AUD180 et AUD20 ; la page « give up » AUD205 et la page « become a citizen again » AUD210, alors que le formulaire 1298i de juillet 2026 donne 595, 85, 320 et 255 : le site suit le 1298i et le signale.",
+      "stale": {
+        "general": 285,
+        "renunciation": 205,
+        "resumption": 210
+      }
+    },
+    "processing": {
+      "source": "https://immi.homeaffairs.gov.au/citizenship/citizenship-processing-times/citizenship-processing-times",
+      "pageUpdated": "2026-10-16",
+      "onHandDate": "2026-09-30",
+      "receivedMonth": "September 2026",
+      "conferral90pct": "5 months",
+      "ceremony90pct": "6 months after approval",
+      "table": {
+        "decision": {
+          "p25": "36 days",
+          "p50": "42 days",
+          "p75": "78 days",
+          "p90": "5 months"
+        },
+        "approvalToCeremony": {
+          "p25": "71 days",
+          "p50": "4 months",
+          "p75": "5 months",
+          "p90": "6 months"
+        },
+        "applicationToCeremony": {
+          "p25": "5 months",
+          "p50": "7 months",
+          "p75": "8 months",
+          "p90": "11 months"
+        },
+        "descentDecision": {
+          "p25": "34 days",
+          "p50": "37 days",
+          "p75": "70 days",
+          "p90": "4 months"
+        },
+        "evidenceDecision": {
+          "p25": "2 days",
+          "p50": "4 days",
+          "p75": "8 days",
+          "p90": "15 days"
+        }
+      },
+      "onHand": {
+        "conferral": 53298,
+        "descent": 2988,
+        "evidence": 940
+      },
+      "received": {
+        "conferral": 23581,
+        "descent": 1664,
+        "evidence": 3647
+      },
+      "postageWeeksInAustralia": 2,
+      "postageWeeksOverseas": 6,
+      "prPageFigures": "Page Permanent resident : 75 % en 13 mois, 90 % en 16 mois (dépôt à cérémonie), plus ancienne que la page des délais"
+    },
+    "history": {
+      "firstCeremonyYear": 1949,
+      "citizenshipDayDate": "17 September",
+      "citizenshipDaySince": 2001,
+      "renamedYear": 1973,
+      "dualFrom": "2002-04-04",
+      "testSince": 2007,
+      "newCitizensSince1949": "more than 6 million"
+    },
+    "misc": {
+      "bornResidentYears": 10,
+      "papuaBefore": "1975-09-16",
+      "childMigrantsFrom": "1947-09-22",
+      "childMigrantsTo": "1967-12-31",
+      "ceremonyAllowHours": 2,
+      "ceremonyLengthHours": 1,
+      "passportWaitDays": 10,
+      "certificateErrorWeeks": 6,
+      "noTravelSince": "July 1990",
+      "evidenceDisasterMonths": 18,
+      "adfFamilyVisasSince": "2007-07-01",
+      "releaseYearsBlock": 2,
+      "releaseYearsBlockRepeat": 10,
+      "sentenceMonths": 12,
+      "ceasedMonthsBlock": 12,
+      "ocbPagesTestable": 50,
+      "ocbWordsTestable": 12600,
+      "birthRuleFrom": "1986-08-20",
+      "descentBornAfter": "1949-01-26"
+    },
+    "testResults": {
+      "source": "au_foi_tests",
+      "rows": [
+        {
+          "period": "2018-19",
+          "pass": 125897,
+          "fail": 18006,
+          "total": 143903
+        },
+        {
+          "period": "2019-20 (to 30 April 2020)",
+          "pass": 123848,
+          "fail": 22869,
+          "total": 146717
+        }
+      ],
+      "note": "Failed attempts are not failed people: most who fail pass on a later attempt (FOI note)."
+    }
+  }
+}

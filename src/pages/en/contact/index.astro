@@ -1,0 +1,24 @@
+---
+import PageLayout from '../../../layouts/PageLayout.astro';
+import LegalIdentity from '../../../components/LegalIdentity.astro';
+import { CONTACT_EMAIL, LAST_UPDATED, SITE_NAMES } from '../../../data/site-config';
+import { route } from '../../../i18n/routes';
+const lang = 'en';
+---
+<PageLayout title={`Contact ${SITE_NAMES[lang]}: corrections and embedding`} description="Write to Australia Citizenship Quiz when a fee, a processing time or a residence rule looks out of date, when a practice question seems wrong, or to embed the mock test." lang={lang} noindex={true} breadcrumbs={[{ label: 'Contact' }]} showAuthor={false}>
+  <div class="prose prose-slate max-w-none">
+    <h1>Contact</h1>
+    <p>E-mail: <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>. Every message is read by a person.</p>
+    <h2>A fee or a rule looks out of date</h2>
+    <p>Tell us the page and, if you have it, the Home Affairs page or form that says otherwise. Citizenship fees are indexed every 1 July and processing times change monthly, and some official pages are updated later than others. We read the official source again, correct the parameter file and date the change.</p>
+    <h2>A practice question seems wrong</h2>
+    <p>Send the first words of the question. Each one names the part of Our Common Bond it was written from; if the booklet and the question differ, we rewrite or remove it.</p>
+    <h2>What we cannot do</h2>
+    <p>We are not Home Affairs, a migration agent or a lawyer. We cannot book a test, check an application or advise on a personal case. Please do not send passport numbers, ImmiAccount details, application numbers or dates of birth.</p>
+    <h2>Using the mock test on your own site</h2>
+    <p>Libraries, councils, English classes and community groups can show the mock test in an iframe at no cost: see the <a href={route('widget', lang)}>embed page</a>.</p>
+    <h2>Publisher</h2>
+    <LegalIdentity lang={lang} />
+    <p>Updated: {LAST_UPDATED}.</p>
+  </div>
+</PageLayout>
